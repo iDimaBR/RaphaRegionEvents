@@ -1,0 +1,17 @@
+Regions:
+  testando:
+    Start:
+      Day: 1
+      Hour: 23
+      Minute: 15
+    Final:
+      Day: 1
+      Hour: 23
+      Minute: 16
+    Message:
+      Opened:
+        - '&aA regiao testando abriu!'
+      Closed:
+        - '&cA regiao testando fechou!'
+      PlayerTeleport:
+        - '&aO evento da regiao acabou, teleportando...'

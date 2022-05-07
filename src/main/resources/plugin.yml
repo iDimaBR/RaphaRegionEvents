@@ -1,0 +1,8 @@
+name: RaphaRegionEvents
+version: '${project.version}'
+main: com.github.idimabr.rapharegionevents.RaphaRegionEvents
+prefix: RaphaRegionEvents
+depend: [ WorldGuard ]
+authors: [ iDimaBR ]
+commands:
+  regionevents:
