@@ -15,8 +15,10 @@ public class SerializerUtils {
         int x = location.getBlockX();
         int y = location.getBlockY();
         int z = location.getBlockZ();
+        float yaw = location.getYaw();
+        float pitch = location.getPitch();
 
-        return world + ";" + x + ";" + y + ";" + z;
+        return world + ";" + x + ";" + y + ";" + z + ";" + yaw + ";" + pitch;
     }
 
     public static Location convertLocation(String string){
@@ -27,7 +29,9 @@ public class SerializerUtils {
         int x = Integer.parseInt(values[1]);
         int y = Integer.parseInt(values[2]);
         int z = Integer.parseInt(values[3]);
+        float yaw = Float.parseFloat(values[5]);
+        float pitch = Float.parseFloat(values[4]);
 
-        return new Location(world, x, y, z);
+        return new Location(world, x, y, z, yaw, pitch);
     }
 }

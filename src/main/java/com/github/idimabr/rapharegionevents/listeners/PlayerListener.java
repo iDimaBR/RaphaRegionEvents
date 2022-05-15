@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -22,7 +23,7 @@ public class PlayerListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onMove(PlayerMoveEvent e){
         Player player = e.getPlayer();
         if(player.hasPermission("rapharegionevents.bypass.regionblock")) return;
@@ -37,7 +38,9 @@ public class PlayerListener implements Listener {
                         player.setVelocity(player.getLocation().getDirection().multiply(-0.6).setY(0.1));
                         player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1, 1);
                     }else{
-                        player.teleport(regionEvent.getBackLocation());
+                        Location backLocation = regionEvent.getBackLocation();
+                        player.teleport(backLocation.getWorld().getSpawnLocation());
+
                         player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
                     }
                     new ActionBar("§cO evento não está aberto.", player);
@@ -51,7 +54,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onBreak(BlockBreakEvent e){
         Player player = e.getPlayer();
         if(player.hasPermission("rapharegionevents.bypass.regionblock")) return;

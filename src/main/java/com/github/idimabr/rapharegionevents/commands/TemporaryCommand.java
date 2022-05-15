@@ -41,11 +41,15 @@ public class TemporaryCommand implements CommandExecutor {
             switch(args[0]){
                 case "abrir":
                     regionEvent.setOpen(true);
+                    RaphaRegionEvents.getPlugin().getConfig().set("Regions." + region + ".Opened", true);
+                    RaphaRegionEvents.getPlugin().getConfig().saveConfig();
                     sender.sendMessage("§aRegião Aberta!");
                     sendMessageAll(RaphaRegionEvents.getPlugin().getConfig().getStringList("Regions." + region + ".Message.Opened"));
                     break;
                 case "fechar":
                     regionEvent.setOpen(false);
+                    RaphaRegionEvents.getPlugin().getConfig().set("Regions." + region + ".Opened", false);
+                    RaphaRegionEvents.getPlugin().getConfig().saveConfig();
                     sender.sendMessage("§aRegião Fechada!");
                     regionEvent.teleportPlayers();
                     sendMessageAll(RaphaRegionEvents.getPlugin().getConfig().getStringList("Regions." + region + ".Message.Closed"));

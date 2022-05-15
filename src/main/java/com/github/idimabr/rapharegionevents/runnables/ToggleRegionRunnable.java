@@ -4,8 +4,11 @@ import com.github.idimabr.rapharegionevents.RaphaRegionEvents;
 import com.github.idimabr.rapharegionevents.objects.TemporaryEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class ToggleRegionRunnable extends BukkitRunnable {
 
@@ -21,7 +24,7 @@ public class ToggleRegionRunnable extends BukkitRunnable {
             TemporaryEvent regionEvent = entry.getValue();
             String region = entry.getKey();
 
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 
             int dayStart = regionEvent.getDay();
             int hourStart = regionEvent.getHour();
@@ -37,6 +40,8 @@ public class ToggleRegionRunnable extends BukkitRunnable {
 
             if(day == dayStart && hour == hourStart && minute == minuteStart && !regionEvent.isOpen()) {
                 regionEvent.setOpen(true);
+                plugin.getConfig().set("Regions." + region + ".Opened", true);
+                plugin.getConfig().saveConfig();
                 for (String s : RaphaRegionEvents.getPlugin().getConfig().getStringList("Regions." + region + ".Message.Opened")) {
                     Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(s.replace("&","§")));
                 }
@@ -44,6 +49,8 @@ public class ToggleRegionRunnable extends BukkitRunnable {
 
             if(day == dayFinal && hour == hourFinal && minute == minuteFinal && regionEvent.isOpen()) {
                 regionEvent.setOpen(false);
+                plugin.getConfig().set("Regions." + region + ".Opened", false);
+                plugin.getConfig().saveConfig();
                 regionEvent.teleportPlayers();
                 for (String s : RaphaRegionEvents.getPlugin().getConfig().getStringList("Regions." + region + ".Message.Closed")) {
                     Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(s.replace("&","§")));

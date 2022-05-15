@@ -1,5 +1,6 @@
 Regions:
   testando:
+    Opened: false
     Start:
       Day: 1
       Hour: 23

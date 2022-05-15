@@ -46,7 +46,9 @@ public class ManagerObject {
             if(section.contains("LocationSpawn") && locationValue.contains(";"))
                 location2 = SerializerUtils.convertLocation(locationValue2);
 
-            events.put(region, new TemporaryEvent(day, hour, minute, dayFinal, hourFinal, minuteFinal, false, region, location, location2));
+            boolean opened = section.getBoolean("Opened");
+
+            events.put(region, new TemporaryEvent(day, hour, minute, dayFinal, hourFinal, minuteFinal, opened, region, location, location2));
         }
     }
 }
